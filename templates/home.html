@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<!-- Custom Styling -->
+<style>
+  body {
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 30px #00ffae55;
+  }
+
+  .btn-glow {
+    background: #0f0;
+    color: #000;
+    font-weight: bold;
+    box-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14;
+    transition: all 0.3s ease;
+  }
+
+  .btn-glow:hover {
+    background: #1aff1a;
+    box-shadow: 0 0 20px #39ff14, 0 0 40px #39ff14;
+    transform: scale(1.05);
+  }
+
+  h1 {
+    background: linear-gradient(90deg, #00ffe7, #39ff14);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+  }
+
+  a {
+    transition: color 0.3s ease;
+  }
+
+  a:hover {
+    color: #66ff66;
+  }
+
+  @media (max-width: 768px) {
+    .grid {
+      padding: 1.5rem;
+    }
+  }
+</style>
+
+<!-- HERO SECTION -->
+<section class="text-center px-5 mt-6">
+  <h1 class="text-5xl font-extrabold mb-6 animate-pulse">
+    Your Smart Health Partner 🤖
+  </h1>
+  <p class="text-gray-300 max-w-2xl mx-auto text-lg mb-8">
+    Track your BMI, Blood Pressure, Sugar, and more with intelligent tips and insights — all in one beautiful dashboard.
+  </p>
+  <a href="/signup" class="px-6 py-3 rounded-xl font-semibold shadow-xl transition-transform transform hover:scale-105 btn-glow">
+    Get Started 🚀
+  </a>
+</section>
+
+<!-- FEATURE CARDS -->
+<div class="grid md:grid-cols-3 gap-8 p-10">
+  <div class="glass-card p-6 rounded-2xl">
+    <h2 class="text-2xl font-bold text-blue-300 mb-3">Smart Health Tracking</h2>
+    <p class="text-gray-300">Monitor all vitals — BMI, Blood Pressure, Sugar levels, Weight — with smart advice.</p>
+  </div>
+  <div class="glass-card p-6 rounded-2xl">
+    <h2 class="text-2xl font-bold text-blue-300 mb-3">AI-Powered Insights</h2>
+    <p class="text-gray-300">Our algorithm gives real-time suggestions for a healthy lifestyle.</p>
+  </div>
+  <div class="glass-card p-6 rounded-2xl">
+    <h2 class="text-2xl font-bold text-blue-300 mb-3">Admin Dashboard</h2>
+    <p class="text-gray-300">Admin can view and manage all users’ data seamlessly.</p>
+  </div>
+</div>
+
+{% endblock %}

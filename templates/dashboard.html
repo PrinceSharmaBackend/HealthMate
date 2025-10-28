@@ -1,0 +1,187 @@
+<!-- dashboard.html -->
+
+{% extends "base.html" %}
+{% block content %}
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+  }
+
+  h2, h3 {
+    color: #39ff14;
+    text-shadow: 0 0 8px #39ff14;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Glowing gradient button */
+  .btn-custom {
+    background: linear-gradient(90deg, #00ffcc, #39ff14);
+    color: #000 !important;
+    font-weight: 600;
+    box-shadow: 0 0 10px #00ffcc, 0 0 20px #39ff14 !important;
+    border: none !important;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    display: inline-block;
+    margin-right: 12px; /* gap between buttons */
+    margin-bottom: 15px;
+  }
+
+  .btn-custom:hover {
+    background: linear-gradient(90deg, #39ff14, #00ffcc);
+    box-shadow: 0 0 25px #00ffcc, 0 0 40px #39ff14 !important;
+    transform: scale(1.07);
+  }
+
+  /* Download button style */
+  .btn-download {
+    background: linear-gradient(90deg, #00ffcc, #39ff14);
+    color: #000 !important;
+    font-weight: 600;
+    box-shadow: 0 0 10px #00ffcc, 0 0 20px #39ff14 !important;
+    border: none !important;
+    transition: all 0.3s ease;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.375rem;
+    display: inline-block;
+    margin-bottom: 1rem;
+    cursor: pointer;
+  }
+
+  .btn-download:hover {
+    background: linear-gradient(90deg, #39ff14, #00ffcc);
+    box-shadow: 0 0 25px #00ffcc, 0 0 40px #39ff14 !important;
+    transform: scale(1.07);
+  }
+
+  /* Table styles */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+    color: #fff;
+  }
+
+  thead {
+    background: rgba(0, 255, 30, 0.2);
+    color: #39ff14;
+    text-shadow: 0 0 5px #39ff14;
+  }
+
+  thead th {
+    padding: 12px 15px;
+    text-align: left;
+    border: 1px solid #39ff14;
+  }
+
+  tbody td {
+    padding: 12px 15px;
+    border: 1px solid rgba(57, 255, 20, 0.5);
+  }
+
+  tbody tr {
+    background: rgba(255, 255, 255, 0.1);
+    transition: background 0.3s ease;
+  }
+
+  tbody tr:hover {
+    background: rgba(57, 255, 20, 0.15);
+  }
+
+  @media (max-width: 768px) {
+    table, thead, tbody, th, td, tr { display: block; }
+    thead tr { display: none; }
+    tbody tr {
+      margin-bottom: 15px;
+      border-radius: 15px;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 10px #39ff14;
+    }
+    tbody td {
+      padding-left: 50%;
+      position: relative;
+      text-align: left;
+      border: none;
+    }
+    tbody td::before {
+      content: attr(data-label);
+      position: absolute;
+      left: 15px;
+      top: 12px;
+      font-weight: 600;
+      color: #39ff14;
+      text-shadow: 0 0 5px #39ff14;
+    }
+  }
+</style>
+
+<h2>Welcome, {{ name }}!</h2>
+
+<!-- Buttons Section with spacing -->
+<div class="mb-4">
+  <a href="{{ url_for('add_health') }}" class="btn btn-custom">Add New Health Record</a>
+  <a href="{{ url_for('mental_health_check') }}" class="btn btn-custom">Check Your Mental Health</a>
+  <a href="{{ url_for('nearby_doctors') }}" class="btn btn-custom">Nearby Doctors</a>
+</div>
+
+<h3>Health History</h3>
+
+<table class="table table-striped table-hover">
+  <thead class="table-primary">
+    <tr>
+      <th>#</th>
+      <th>Date</th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>Temperature (°C)</th>
+      <th>Weight</th>
+      <th>BMI</th>
+      <th>BMI Status</th>
+      <th>BP (Sys/Dia)</th>
+      <th>Heart Rate</th>
+      <th>Sugar</th>
+      <th>Tips</th>
+      <th>Download</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for record in records %}
+      <tr>
+        <td data-label="#"> {{ loop.index }} </td>
+        <td data-label="Date"> {{ record.date.strftime("%d-%m-%Y %H:%M") }} </td>
+        <td data-label="Age"> {{ record.age }} </td>
+        <td data-label="Gender"> {{ record.gender }} </td>
+        <td data-label="Temperature"> {{ record.temperature }} </td>
+        <td data-label="Weight"> {{ record.weight }} </td>
+        <td data-label="BMI"> {{ record.bmi }} </td>
+        <td data-label="BMI Status"> {{ record.bmi_status }} </td>
+        <td data-label="BP"> {{ record.bp_sys }}/{{ record.bp_dia }} </td>
+        <td data-label="Heart Rate"> {{ record.heart_rate }} </td>
+        <td data-label="Sugar"> {{ record.sugar }} </td>
+        <td data-label="Tips"> {{ record.tips }} </td>
+        <td data-label="Download">
+          <a href="{{ url_for('download_health_pdf_user', record_id=record.id) }}" class="btn btn-download" title="Download PDF Report">
+            Download PDF
+          </a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

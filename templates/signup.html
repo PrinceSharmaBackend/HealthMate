@@ -1,0 +1,122 @@
+<!-- signup.html -->
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<!-- Custom Styling -->
+<style>
+  /* ==== GLOBAL STYLES ==== */
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: #fff;
+    min-height: 100vh;
+  }
+
+  /* ==== GLASS NAVBAR ==== */
+  .navbar {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+  }
+
+  /* ==== FORM CONTAINER ==== */
+  form {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    transition: all 0.3s ease;
+  }
+
+  /* ==== FORM INPUTS ==== */
+  input.form-control {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #fff;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+
+  input.form-control:focus {
+    background-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 8px #39ff14;
+    outline: none;
+  }
+
+  /* ==== BUTTON STYLES ==== */
+  button.btn-success {
+    background: #0f0;
+    color: #000;
+    font-weight: bold;
+    box-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14;
+    border: none;
+    transition: all 0.3s ease;
+  }
+
+  button.btn-success:hover {
+    background: #1aff1a;
+    box-shadow: 0 0 20px #39ff14, 0 0 40px #39ff14;
+    transform: scale(1.02);
+  }
+
+  /* ==== LINKS ==== */
+  a {
+    color: #39ff14;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  a:hover {
+    color: #66ff66;
+    text-decoration: underline;
+  }
+
+  /* ==== HEADINGS ==== */
+  h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #fff;
+  }
+
+  /* ==== RESPONSIVENESS ==== */
+  @media (max-width: 768px) {
+    form {
+      padding: 1.5rem;
+    }
+  }
+</style>
+
+<!-- SIGNUP FORM -->
+<div class="col-md-6 offset-md-3 mt-4">
+  <h2>Sign Up</h2>
+  <form method="POST">
+    <div class="mb-3">
+      <label>Name</label>
+      <input type="text" name="name" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label>Email</label>
+      <input type="email" name="email" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label>Password</label>
+      <input type="password" name="password" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-success w-100">Sign Up</button>
+  </form>
+  <p class="mt-2 text-center">Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
+</div>
+
+{% endblock %}

@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 50px auto;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  h2 {
+    text-align: center;
+    color: #39ff14;
+    text-shadow: 0 0 10px #39ff14;
+    margin-bottom: 30px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
+  }
+
+  thead {
+    background: rgba(0, 255, 30, 0.2);
+    color: #39ff14;
+    text-shadow: 0 0 5px #39ff14;
+  }
+
+  thead th {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 2px solid rgba(57, 255, 20, 0.5);
+  }
+
+  tbody td {
+    padding: 12px 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  tbody tr:hover {
+    background: rgba(57, 255, 20, 0.15);
+  }
+
+  /* Glowing gradient button */
+  .btn-glow {
+    background: linear-gradient(90deg, #00ffcc, #0077ff);
+    border: none;
+    color: white;
+    font-weight: 600;
+    box-shadow: 0px 0px 15px #00ffcc;
+    transition: 0.3s;
+    padding: 12px;
+    border-radius: 7px;
+    cursor: pointer;
+    text-align: center;
+    display: block;
+    width: 100%;
+    max-width: 280px;
+    margin: 30px auto 0;
+    text-decoration: none;
+  }
+
+  .btn-glow:hover {
+    box-shadow: 0px 0px 30px #00ffcc;
+    transform: scale(1.03);
+  }
+
+  @media (max-width: 768px) {
+    table, thead, tbody, th, td, tr { display: block; }
+    thead tr { display: none; }
+    tbody tr {
+      margin-bottom: 15px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 10px;
+      box-shadow: 0 0 10px #39ff14;
+    }
+    tbody td {
+      padding-left: 50%;
+      position: relative;
+      border: none;
+      display: flex;
+      justify-content: space-between;
+      text-align: right;
+    }
+    tbody td::before {
+      content: attr(data-label);
+      position: absolute;
+      left: 15px;
+      font-weight: 600;
+      color: #39ff14;
+    }
+  }
+</style>
+
+<div class="container">
+  <h2>Nearby Doctors</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Specialization</th>
+        <th>Contact</th>
+        <th>Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for doctor in doctors %}
+        <tr>
+          <td data-label="#"> {{ loop.index }} </td>
+          <td data-label="Name">{{ doctor.name }}</td>
+          <td data-label="Specialization">{{ doctor.specialization }}</td>
+          <td data-label="Contact">{{ doctor.contact }}</td>
+          <td data-label="Address">{{ doctor.address }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a href="{{ url_for('dashboard') }}" class="btn-glow">⬅️ Back to User Dashboard</a>
+</div>
+{% endblock %}

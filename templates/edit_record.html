@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  body {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+  }
+  .health-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    padding: 30px;
+    margin-top: 50px;
+    animation: fadeIn 1s ease-in-out;
+  }
+  h2 {
+    text-align: center;
+    font-weight: 600;
+    color: #00ffcc;
+    text-shadow: 0px 0px 10px #00ffcc;
+    margin-bottom: 30px;
+  }
+  label {
+    font-weight: 500;
+  }
+  input {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+  }
+  input:focus {
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 10px #00ffcc;
+    outline: none;
+  }
+  .btn-glow {
+    background: linear-gradient(90deg, #00ffcc, #0077ff);
+    border: none;
+    color: white;
+    font-weight: 600;
+    box-shadow: 0px 0px 15px #00ffcc;
+    transition: 0.3s;
+  }
+  .btn-glow:hover {
+    box-shadow: 0px 0px 30px #00ffcc;
+    transform: scale(1.03);
+  }
+  a.btn-secondary {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    font-weight: 600;
+    border-radius: 4px;
+    text-decoration: none;
+    background-color: #6c757d;
+    color: white;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+  }
+  a.btn-secondary:hover {
+    background-color: #5a6268;
+    color: white;
+  }
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(-20px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+</style>
+
+<div class="container">
+  <div class="col-md-8 offset-md-2 health-card">
+    <h2>Edit Record for {{ record.user.name }}</h2>
+    <form method="POST">
+      <div class="row">
+        {% for field in ['bmi', 'bmi_status', 'bp_sys', 'bp_dia', 'heart_rate', 'sugar', 'weight', 'temperature', 'age', 'gender', 'tips'] %}
+          <div class="mb-3 col-md-6">
+            <label class="form-label text-capitalize" for="{{ field }}">{{ field.replace('_', ' ') }}</label>
+            <input
+              type="text"
+              class="form-control"
+              id="{{ field }}"
+              name="{{ field }}"
+              value="{{ record[field] if record[field] is not none else '' }}"
+              required
+            />
+          </div>
+        {% endfor %}
+      </div>
+
+      <button type="submit" class="btn-glow w-100 mt-3">Update Record</button>
+      <a href="{{ url_for('admin_dashboard') }}" class="btn-secondary">Cancel</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

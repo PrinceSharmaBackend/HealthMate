@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 700px;
+    margin: 50px auto;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  h2 {
+    text-align: center;
+    color: #39ff14;
+    text-shadow: 0 0 10px #39ff14;
+    margin-bottom: 30px;
+  }
+
+  .question {
+    margin-bottom: 25px;
+    font-size: 1.1rem;
+  }
+
+  .options label {
+    margin-right: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  .btn-glow {
+    background: linear-gradient(90deg, #00ffcc, #0077ff);
+    border: none;
+    color: white;
+    font-weight: 600;
+    box-shadow: 0px 0px 15px #00ffcc;
+    transition: 0.3s;
+    padding: 12px;
+    border-radius: 7px;
+    cursor: pointer;
+    text-align: center;
+    display: block;
+    width: 100%;
+    max-width: 280px;
+    margin: 30px auto 0;
+    text-decoration: none;
+  }
+
+  .btn-glow:hover {
+    box-shadow: 0px 0px 30px #00ffcc;
+    transform: scale(1.03);
+  }
+</style>
+
+<div class="container">
+  <h2>Mental Health Check</h2>
+  <form method="POST" action="{{ url_for('mental_health_check') }}">
+    <div class="question">
+      1. Do you often feel anxious or worried?
+      <div class="options">
+        <label><input type="radio" name="q1" value="yes" required> Yes</label>
+        <label><input type="radio" name="q1" value="no"> No</label>
+      </div>
+    </div>
+    <div class="question">
+      2. Do you have trouble sleeping?
+      <div class="options">
+        <label><input type="radio" name="q2" value="yes" required> Yes</label>
+        <label><input type="radio" name="q2" value="no"> No</label>
+      </div>
+    </div>
+    <div class="question">
+      3. Do you often feel sad or down?
+      <div class="options">
+        <label><input type="radio" name="q3" value="yes" required> Yes</label>
+        <label><input type="radio" name="q3" value="no"> No</label>
+      </div>
+    </div>
+    <div class="question">
+      4. Do you find it hard to concentrate?
+      <div class="options">
+        <label><input type="radio" name="q4" value="yes" required> Yes</label>
+        <label><input type="radio" name="q4" value="no"> No</label>
+      </div>
+    </div>
+    <div class="question">
+      5. Do you feel fatigued or low on energy?
+      <div class="options">
+        <label><input type="radio" name="q5" value="yes" required> Yes</label>
+        <label><input type="radio" name="q5" value="no"> No</label>
+      </div>
+    </div>
+    <button type="submit" class="btn-glow">Submit</button>
+  </form>
+
+  <a href="{{ url_for('dashboard') }}" class="btn-glow" style="margin-top: 20px;">⬅️ Back to User Dashboard</a>
+</div>
+{% endblock %}
