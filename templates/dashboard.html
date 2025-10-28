@@ -66,6 +66,10 @@
   }
 
   /* Table styles */
+  .table-wrapper {
+    overflow-x: auto; /* Scroll on small screens */
+  }
+
   table {
     width: 100%;
     border-collapse: collapse;
@@ -74,6 +78,7 @@
     border-radius: 15px;
     box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
     color: #fff;
+    min-width: 900px; /* Prevent table shrinking on mobile */
   }
 
   thead {
@@ -103,29 +108,11 @@
   }
 
   @media (max-width: 768px) {
-    table, thead, tbody, th, td, tr { display: block; }
-    thead tr { display: none; }
-    tbody tr {
-      margin-bottom: 15px;
-      border-radius: 15px;
-      padding: 10px;
-      background: rgba(255, 255, 255, 0.1);
-      box-shadow: 0 0 10px #39ff14;
+    body {
+      padding: 0 10px;
     }
-    tbody td {
-      padding-left: 50%;
-      position: relative;
-      text-align: left;
-      border: none;
-    }
-    tbody td::before {
-      content: attr(data-label);
-      position: absolute;
-      left: 15px;
-      top: 12px;
-      font-weight: 600;
-      color: #39ff14;
-      text-shadow: 0 0 5px #39ff14;
+    h2, h3 {
+      text-align: center;
     }
   }
 </style>
@@ -141,47 +128,50 @@
 
 <h3>Health History</h3>
 
-<table class="table table-striped table-hover">
-  <thead class="table-primary">
-    <tr>
-      <th>#</th>
-      <th>Date</th>
-      <th>Age</th>
-      <th>Gender</th>
-      <th>Temperature (°C)</th>
-      <th>Weight</th>
-      <th>BMI</th>
-      <th>BMI Status</th>
-      <th>BP (Sys/Dia)</th>
-      <th>Heart Rate</th>
-      <th>Sugar</th>
-      <th>Tips</th>
-      <th>Download</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for record in records %}
+<!-- ✅ Table wrapped for mobile scroll fix -->
+<div class="table-wrapper">
+  <table class="table table-striped table-hover">
+    <thead class="table-primary">
       <tr>
-        <td data-label="#"> {{ loop.index }} </td>
-        <td data-label="Date"> {{ record.date.strftime("%d-%m-%Y %H:%M") }} </td>
-        <td data-label="Age"> {{ record.age }} </td>
-        <td data-label="Gender"> {{ record.gender }} </td>
-        <td data-label="Temperature"> {{ record.temperature }} </td>
-        <td data-label="Weight"> {{ record.weight }} </td>
-        <td data-label="BMI"> {{ record.bmi }} </td>
-        <td data-label="BMI Status"> {{ record.bmi_status }} </td>
-        <td data-label="BP"> {{ record.bp_sys }}/{{ record.bp_dia }} </td>
-        <td data-label="Heart Rate"> {{ record.heart_rate }} </td>
-        <td data-label="Sugar"> {{ record.sugar }} </td>
-        <td data-label="Tips"> {{ record.tips }} </td>
-        <td data-label="Download">
-          <a href="{{ url_for('download_health_pdf_user', record_id=record.id) }}" class="btn btn-download" title="Download PDF Report">
-            Download PDF
-          </a>
-        </td>
+        <th>#</th>
+        <th>Date</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Temperature (°C)</th>
+        <th>Weight</th>
+        <th>BMI</th>
+        <th>BMI Status</th>
+        <th>BP (Sys/Dia)</th>
+        <th>Heart Rate</th>
+        <th>Sugar</th>
+        <th>Tips</th>
+        <th>Download</th>
       </tr>
-    {% endfor %}
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      {% for record in records %}
+        <tr>
+          <td data-label="#"> {{ loop.index }} </td>
+          <td data-label="Date"> {{ record.date.strftime("%d-%m-%Y %H:%M") }} </td>
+          <td data-label="Age"> {{ record.age }} </td>
+          <td data-label="Gender"> {{ record.gender }} </td>
+          <td data-label="Temperature"> {{ record.temperature }} </td>
+          <td data-label="Weight"> {{ record.weight }} </td>
+          <td data-label="BMI"> {{ record.bmi }} </td>
+          <td data-label="BMI Status"> {{ record.bmi_status }} </td>
+          <td data-label="BP"> {{ record.bp_sys }}/{{ record.bp_dia }} </td>
+          <td data-label="Heart Rate"> {{ record.heart_rate }} </td>
+          <td data-label="Sugar"> {{ record.sugar }} </td>
+          <td data-label="Tips"> {{ record.tips }} </td>
+          <td data-label="Download">
+            <a href="{{ url_for('download_health_pdf_user', record_id=record.id) }}" class="btn btn-download" title="Download PDF Report">
+              Download PDF
+            </a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 
 {% endblock %}
